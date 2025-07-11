@@ -7,6 +7,7 @@ export const ListContext = createContext();
 const reducerFunc = (state, action) => {
   const newLists = JSON.parse(JSON.stringify(state));
   const list = newLists.filter((list) => list.id === action.listId);
+  const listIndex = newLists.findIndex((list) => list.id === action.listId);
   const task = action.taskId ? list[0].tasks.find((task) => task.id === action.taskId) : '';
   const taskIndex = action.taskId ? list[0].tasks.findIndex((task) => task.id === action.taskId) : '';
   switch (action.type) {
@@ -69,6 +70,9 @@ const reducerFunc = (state, action) => {
       const index = list[0].tasks.findIndex((task) => task.id === action.taskId) ;
       list[0].tasks[index] = action.task;
       return newLists;
+      case 'UPDATE_LIST':
+        list[0].title = action.list.title;
+        return newLists;
     default:
       return state;
   }
