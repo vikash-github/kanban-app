@@ -2,7 +2,7 @@ import React from 'react';
 import { useContext, useState } from 'react';
 import { ListContext } from '../contexts/ListContext';
 
-export default function EditTaskForm({task, listId, onSubmit}) {
+export default function EditTaskForm({task = {}, listId, onSubmit}) {
   const [formData, setFormData] = useState({
     title: task.title || '',
     description: task.description || '',
@@ -11,7 +11,6 @@ export default function EditTaskForm({task, listId, onSubmit}) {
   // Handle input changes
   const handleChange = (e) => {
     const { name, value } = e.target;
-    console.log('handleChange triggered in child', name, value);
     setFormData((prev) => ({
       ...prev,
       [name]: value,

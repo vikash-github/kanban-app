@@ -55,13 +55,16 @@ const reducerFunc = (state, action) => {
         }
       });
       return newLists;
-      case 'ADD_TASK':
-        newLists.map((list) => {
-          if(list.id === action.listId) {
-            list.tasks.push(action.task);
-          }
-        });
-        return newLists;
+    case 'ADD_LIST':
+      newLists.push(action.list);
+      return newLists;
+    case 'ADD_TASK':
+      newLists.map((list) => {
+        if(list.id === action.listId) {
+          list.tasks.push(action.task);
+        }
+      });
+      return newLists;
     case 'UPDATE_TASK':
       const index = list[0].tasks.findIndex((task) => task.id === action.taskId) ;
       list[0].tasks[index] = action.task;
