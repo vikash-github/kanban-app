@@ -20,7 +20,7 @@ const reducerFunc = (state, action) => {
         return newLists;
       }
     case 'DELETE_TASK':
-      list[0].tasks = list.tasks.filter((task) => task.id !== action.taskId);
+      list[0].tasks = list[0].tasks.filter((task) => task.id !== action.taskId);
       
       return newLists;
     case 'MOVE_TASK_DOWN':

@@ -3,25 +3,41 @@ import { useContext, useState } from 'react';
 import { ListContext } from '../contexts/ListContext';
 import EditTaskForm from './EditTaskForm';
 import Modal from './Modal';
+import deleteIcon from '/delete.svg';
+import editIcon from '/edit.svg';
+import leftIcon from '/left.svg';
+import rightIcon from '/right.svg';
+import upIcon from '/up.svg';
+import downIcon from '/down.svg';
+
+
+
+
+
 
 export default function Cards({tasks, listId}) {
-const [showModal, setShowModal] = useState(false);
-const [task, setTask] = useState('');
+const [editNDeleteState, setEditNDeleteState] = useState({showModal: false, task: {}, type: ''});
 const { lists, dispatch } = useContext(ListContext);
-const handleEdit = (e, task) => {
+const {showModal, task, type} = editNDeleteState;
+
+const deleteTask = (e, task) => {
+  dispatch({taskId: task.id, listId:listId, type: 'DELETE_TASK'});
+  setEditNDeleteState({showModal: false, task: {}, type: ''});
+}
+const handleEditnDelete = (e, task, type) => {
   e.stopPropagation();
-  setShowModal(true);
-  setTask(task)
+  setEditNDeleteState({showModal: true, task: task, type: type});
+
 }
 const onSubmit = (formData) => {
-  const newTask = {
+  const updatedTask = {
     id: task.id,
     title: formData.title,
     description: formData.description
   };
     
-  dispatch({ type: 'UPDATE_TASK', listId: listId, task: newTask, taskId: task.id });
-  setShowModal(false);
+  dispatch({ type: 'UPDATE_TASK', listId: listId, task: updatedTask, taskId: task.id });
+  setEditNDeleteState({showModal: false, task: {}, type: ''});
 }
   
   return (
@@ -32,30 +48,25 @@ const onSubmit = (formData) => {
             <h2 className='font-semibold text-xl'>{task.title}</h2>
             <div className=' text-black-300 text-xs mb-7'>{task.description}</div>
             <div className='flex gap-6 justify-around'>
-              <div className='w-5 cursor-pointer' onClick={(e) => { handleEdit(e, task)}}><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" ></g><g id="SVGRepo_tracerCarrier"   ></g><g id="SVGRepo_iconCarrier"> <path d="M20.1498 7.93997L8.27978 19.81C7.21978 20.88 4.04977 21.3699 3.32977 20.6599C2.60977 19.9499 3.11978 16.78 4.17978 15.71L16.0498 3.84C16.5979 3.31801 17.3283 3.03097 18.0851 3.04019C18.842 3.04942 19.5652 3.35418 20.1004 3.88938C20.6356 4.42457 20.9403 5.14781 20.9496 5.90463C20.9588 6.66146 20.6718 7.39189 20.1498 7.93997V7.93997Z" stroke="#000000" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"></path> </g></svg></div>
-              <div className='w-5 cursor-pointer' onClick={() => dispatch({taskId: task.id, listId:listId, type: 'DELETE_TASK'})}><svg viewBox="0 0 1024 1024" fill="#000000"  version="1.1" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" strokeWidth="0"></g><g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g><g id="SVGRepo_iconCarrier"><path d="M32 241.6c-11.2 0-20-8.8-20-20s8.8-20 20-20l940 1.6c11.2 0 20 8.8 20 20s-8.8 20-20 20L32 241.6zM186.4 282.4c0-11.2 8.8-20 20-20s20 8.8 20 20v688.8l585.6-6.4V289.6c0-11.2 8.8-20 20-20s20 8.8 20 20v716.8l-666.4 7.2V282.4z" fill=""></path><path d="M682.4 867.2c-11.2 0-20-8.8-20-20V372c0-11.2 8.8-20 20-20s20 8.8 20 20v475.2c0.8 11.2-8.8 20-20 20zM367.2 867.2c-11.2 0-20-8.8-20-20V372c0-11.2 8.8-20 20-20s20 8.8 20 20v475.2c0.8 11.2-8.8 20-20 20zM524.8 867.2c-11.2 0-20-8.8-20-20V372c0-11.2 8.8-20 20-20s20 8.8 20 20v475.2c0.8 11.2-8.8 20-20 20zM655.2 213.6v-48.8c0-17.6-14.4-32-32-32H418.4c-18.4 0-32 14.4-32 32.8V208h-40v-42.4c0-40 32.8-72.8 72.8-72.8H624c40 0 72.8 32.8 72.8 72.8v48.8h-41.6z" fill=""></path></g></svg></div>
-              <div className='w-5 cursor-pointer'  onClick={() => dispatch({taskId: task.id, listId:listId, type: 'MOVE_TASK_UP'})} ><svg fill="#000000" viewBox="0 0 256 256" id="Flat" xmlns="http://www.w3.org/2000/svg" transform="matrix(1, 0, 0, -1, 0, 0)"><g id="SVGRepo_bgCarrier" strokeWidth="0"></g><g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M202.82812,146.82812l-72,72a3.99853,3.99853,0,0,1-5.65625,0l-72-72a3.99957,3.99957,0,0,1,5.65625-5.65625L124,206.34277V40a4,4,0,0,1,8,0V206.34277l65.17187-65.1709a3.99957,3.99957,0,0,1,5.65625,5.65625Z"></path> </g></svg></div>
-              <div className='w-5 cursor-pointer'  onClick={() => dispatch({taskId: task.id, listId:listId, type: 'MOVE_TASK_DOWN'})}><svg fill="#000000" viewBox="0 0 256 256" id="Flat" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" strokeWidth="0"></g><g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M202.82812,146.82812l-72,72a3.99853,3.99853,0,0,1-5.65625,0l-72-72a3.99957,3.99957,0,0,1,5.65625-5.65625L124,206.34277V40a4,4,0,0,1,8,0V206.34277l65.17187-65.1709a3.99957,3.99957,0,0,1,5.65625,5.65625Z"></path> </g></svg></div>
-              <div className='w-5 cursor-pointer' onClick={() => dispatch({taskId: task.id, listId:listId, type: 'MOVE_TASK_PREV_LIST'})}><svg fill="#000000" viewBox="0 0 256 256" id="Flat" xmlns="http://www.w3.org/2000/svg" transform="matrix(-1, 0, 0, -1, 0, 0)rotate(270)"><g id="SVGRepo_bgCarrier" strokeWidth="0"></g><g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M202.82812,146.82812l-72,72a3.99853,3.99853,0,0,1-5.65625,0l-72-72a3.99957,3.99957,0,0,1,5.65625-5.65625L124,206.34277V40a4,4,0,0,1,8,0V206.34277l65.17187-65.1709a3.99957,3.99957,0,0,1,5.65625,5.65625Z"></path> </g></svg></div>
-              <div className='w-5 cursor-pointer' onClick={() => dispatch({taskId: task.id, listId:listId, type: 'MOVE_TASK_NEXT_LIST'})}><svg fill="#000000" viewBox="0 0 256 256" id="Flat" xmlns="http://www.w3.org/2000/svg" transform="matrix(-1, 0, 0, -1, 0, 0)rotate(90)"><g id="SVGRepo_bgCarrier" strokeWidth="0"></g><g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M202.82812,146.82812l-72,72a3.99853,3.99853,0,0,1-5.65625,0l-72-72a3.99957,3.99957,0,0,1,5.65625-5.65625L124,206.34277V40a4,4,0,0,1,8,0V206.34277l65.17187-65.1709a3.99957,3.99957,0,0,1,5.65625,5.65625Z"></path> </g></svg> </div>
+              <div className='w-5 cursor-pointer' onClick={(e) => { handleEditnDelete(e, task, 'edit')}}><img src={editIcon} /></div>
+              <div className='w-5 cursor-pointer' onClick={(e) => handleEditnDelete(e, task, 'delete') }><img src={deleteIcon} /></div>
+              <div className='w-5 cursor-pointer'  onClick={() => dispatch({taskId: task.id, listId:listId, type: 'MOVE_TASK_UP'})} ><img src={upIcon} /></div>
+              <div className='w-5 cursor-pointer'  onClick={() => dispatch({taskId: task.id, listId:listId, type: 'MOVE_TASK_DOWN'})}><img src={downIcon} /></div>
+              <div className='w-5 cursor-pointer' onClick={() => dispatch({taskId: task.id, listId:listId, type: 'MOVE_TASK_PREV_LIST'})}><img src={leftIcon} /></div>
+              <div className='w-5 cursor-pointer' onClick={() => dispatch({taskId: task.id, listId:listId, type: 'MOVE_TASK_NEXT_LIST'})}><img src={rightIcon} /></div>
           </div>
         </div>
         )
       })}
-      <Modal show={showModal} onClose={() => {setShowModal(false)}} >
-        <EditTaskForm listId={listId} task={task} onSubmit={onSubmit} />
+      <Modal show={showModal} onClose={() => {setEditNDeleteState({showModal: false, task: {}, type: ''});
+}} >
+        {task && type === 'edit' ? <EditTaskForm listId={listId} task={task} onSubmit={onSubmit} /> :
+        <div className='flex flex-col gap-4'>
+          <h2 className='text-xl font-semibold'>Are you sure you want to delete this task?</h2>
+          <button className='bg-red-500 text-white p-2 rounded' onClick={(e) => deleteTask(e, task)}>Delete Task</button>
+        </div>}
       </Modal>
     </>
   )
 }
-  /** return (
-    tasks.map((task) => {
-      return(
-      <div className=' bg-blue-100 shadow-md rounded-xl p-4'>
-        <h2 className='font-semibold text-xl'>Task one</h2>
-        <div contentEditable className=' text-black-300 text-xs mb-7'>Description of task one</div>
-        <Actions />
-    </div>)
-    })}
-  )
-} */
+  
