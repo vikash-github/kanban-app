@@ -19,8 +19,6 @@ export default function InlineForm({ showForm, onSubmit, title, listId, onClose}
     } else {
       console.warn('onSubmit prop is not defined');
     }
-    // Handle form submission logic here
-    console.log("Form submitted with data:", formData);
   }
   if (!showForm) {
     return null; // Don't render anything if showForm is false

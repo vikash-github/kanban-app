@@ -11,7 +11,6 @@ export const searchObjInArray = function (array, key, value) {
 
   array.forEach((elm, index) => {
     if (elm && typeof elm === 'object' && elm[key] === value) {
-      console.log(elm);
       matches.push(elm);
       if (firstIndex === -1) firstIndex = index;
     }

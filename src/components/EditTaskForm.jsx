@@ -32,7 +32,7 @@ export default function EditTaskForm({task = {}, listId, onSubmit}) {
         <form onSubmit={handleFormSubmit}>
             <input name="title" onChange={handleChange} value={formData.title} type="text" placeholder="Task Title" className="border p-2 rounded w-full mb-4" />
             <textarea name="description" onChange={handleChange} value={formData.description} placeholder="Task Description" className="border p-2 rounded w-full mb-4"></textarea>
-            <button  className="bg-blue-500 text-white p-2 rounded" >Save Task</button>
+            <button  className="bg-blue-500 text-white p-2 rounded cursor-pointer" >Save Task</button>
         </form>
     </div>
   )
