@@ -8,6 +8,7 @@ import AddButton from './AddButton';
 export default function AddTask({listId}) {
   const [showModal, setShowModal] = useState(false);
   const { dispatch} = useContext(ListContext);
+  
   const handleClick = () => {
     setShowModal(true);
   }

@@ -23,6 +23,7 @@ export default function AddList() {
       tasks: [],
     };
     dispatch({ type: 'ADD_LIST', list: newList });
+    onClose();
   }
   return (
     <div className='w-full sm:w-80 flex-col p-4 gap-3'>
