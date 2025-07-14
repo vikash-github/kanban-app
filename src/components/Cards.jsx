@@ -67,6 +67,7 @@ const handleToggleComplete = (task) => {
  * 
  * @param {Object} formData 
  */
+
 const onSubmit = (formData) => {
   const updatedTask = {
     id: task.id,
@@ -118,7 +119,7 @@ const onSubmit = (formData) => {
               </div>
               <div className='text-sm cursor-pointer' onClick={(e) => { handleEditnDelete(e, task, 'edit')}}>{task.title}</div>
             </div>
-            <div className='w-5 mb-2'>{task.description && <img src={descIcon} alt="task description" />}</div>
+            <div className='w-5 mb-2'>{task.description && <img src={descIcon} alt="task description"  title='This task has description'/>}</div>
             <div className='flex gap-6 justify-around'>
               {renderTaskActions(task)}
           </div>
