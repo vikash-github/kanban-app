@@ -23,7 +23,7 @@ import {ACTIONS} from '../data/constants';
  * @param {string} listId - The ID of the list to which the tasks belong.
  */
 
-export default function Cards({tasks, listId}) {
+export default function TaskCard({tasks, listId}) {
 const [editNDeleteState, setEditNDeleteState] = useState({showModal: false, task: {}, type: ''});
 const [isComplete, setIsComplete] = useState(false);
 const {  dispatch } = useContext(ListContext);

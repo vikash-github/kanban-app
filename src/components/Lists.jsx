@@ -1,5 +1,5 @@
 import React from 'react'
-import Cards from './Cards'
+import TaskCard from './TaskCard'
 import AddTask from './AddTask'
 import { useContext, useState } from 'react';
 import { ListContext } from '../contexts/ListContext';
@@ -56,7 +56,7 @@ export default function Lists() {
                 </div>
                 {/** Render InlineForm only if listIdToUpdate matches the current list's id(featute flag dependent) */}
                 {listIdToUpdate === list.id && <InlineForm showForm={true} onSubmit={handleTitleSubmit} title={list.title} listId={list.id} onClose={()=>{setlistIdToUpdate(false)}} />}
-                <Cards tasks={list.tasks} listId={list.id} />
+                <TaskCard tasks={list.tasks} listId={list.id} />
               </div>
           )
         })}

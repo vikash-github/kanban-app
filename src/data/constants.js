@@ -18,7 +18,7 @@ export const ACTIONS = {
 export const FEATURE_FLAGS = {
     
     ENABLE_LIST_EDIT: false, // for updating list title
-    ENABLE_LIST_ADD: false, // for adding list
+    ENABLE_LIST_ADD: true, // for adding list
 }
 
 //INtial list data for the Kanban app

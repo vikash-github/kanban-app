@@ -1,5 +1,5 @@
 import {useState, useContext} from 'react';
-import AddButton from './AddButton';
+import AddButton from './UI/AddButton';
 import { ListContext } from '../contexts/ListContext';
 import InlineForm from './InlineForm';
 import {ACTIONS} from '../data/constants';

@@ -3,7 +3,7 @@ import { createPortal } from 'react-dom';
 import { ListContext } from '../contexts/ListContext';
 import Modal from './UI/Modal';
 import EditTaskForm from './EditTaskForm';
-import AddButton from './AddButton';
+import AddButton from './UI/AddButton';
 import { ACTIONS } from '../data/constants';
 
 export default function AddTask({listId}) {
